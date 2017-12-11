@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Author: Oskar Rittsél, OP5 AB
-# Date: 2017-12-08
-# Version: 1.0
+# Date: 2017-12-11
+# Version: 1.0.1
 
 
 # Add show list of devices
@@ -219,10 +219,10 @@ fi
 
 
 # Check if we're above threshold - done with awk because of floaters.
-if (( $(awk 'BEGIN {print ("'$DATA'" >= "'$CRITICAL'")}') )); then
+if python -c "import sys; sys.exit(0 if float($DATA) >= float($CRITICAL) else 1)"; then
 	echo "CRITICAL - $SENSOR $DATA is above $CRITICAL | $SENSOR=$DATA"
 	exit 2
-elif (( $(awk 'BEGIN {print ("'$DATA'" >= "'$WARNING'")}') )); then
+elif python -c "import sys; sys.exit(0 if float($DATA) >= float($WARNING) else 1)"; then
 	echo "WARNING - $SENSOR $DATA is above $WARNING | $SENSOR=$DATA"
 	exit 1
 else
