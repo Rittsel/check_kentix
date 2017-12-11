@@ -218,7 +218,7 @@ else
 fi
 
 
-# Check if we're above threshold - done with awk because of floaters.
+# Check if we're above threshold - done with python because of floaters.
 if python -c "import sys; sys.exit(0 if float($DATA) >= float($CRITICAL) else 1)"; then
 	echo "CRITICAL - $SENSOR $DATA is above $CRITICAL | $SENSOR=$DATA"
 	exit 2
