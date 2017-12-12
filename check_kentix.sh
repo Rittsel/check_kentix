@@ -226,6 +226,6 @@ elif python -c "import sys; sys.exit(0 if float($DATA) >= float($WARNING) else 1
 	echo "WARNING - $SENSOR $DATA is above $WARNING | $SENSOR=$DATA;$WARNING;$CRITICAL"
 	exit 1
 else
-	echo "OK - $SENSOR is $DATA | $SENSOR=$DATA"
+	echo "OK - $SENSOR is $DATA | $SENSOR=$DATA;$WARNING;$CRITICAL"
 	exit 0
 fi
