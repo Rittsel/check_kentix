@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Author: Oskar Rittsél, OP5 AB
-# Date: 2017-12-11
-# Version: 1.0.1
+# Date: 2017-12-12
+# Version: 1.0.2
 
 
 # Add show list of devices
