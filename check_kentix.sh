@@ -220,10 +220,10 @@ fi
 
 # Check if we're above threshold - done with python because of floaters.
 if python -c "import sys; sys.exit(0 if float($DATA) >= float($CRITICAL) else 1)"; then
-	echo "CRITICAL - $SENSOR $DATA is above $CRITICAL | $SENSOR=$DATA"
+	echo "CRITICAL - $SENSOR $DATA is above $CRITICAL | $SENSOR=$DATA;$WARNING;$CRITICAL"
 	exit 2
 elif python -c "import sys; sys.exit(0 if float($DATA) >= float($WARNING) else 1)"; then
-	echo "WARNING - $SENSOR $DATA is above $WARNING | $SENSOR=$DATA"
+	echo "WARNING - $SENSOR $DATA is above $WARNING | $SENSOR=$DATA;$WARNING;$CRITICAL"
 	exit 1
 else
 	echo "OK - $SENSOR is $DATA | $SENSOR=$DATA"
