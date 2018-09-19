@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Author: Oskar Rittsél, OP5 AB
-# Date: 2017-12-12
-# Version: 1.0.2
+# Author: Oskar Rittsel, OP5 AB
+# Date: 2018-09-19
+# Version: 1.1.0
 
 
 # Add show list of devices
@@ -20,7 +20,7 @@ CRITICAL=
 
 # Start for supporting both KAM & direct query to a multisensor
 KAMOID=".1.3.6.1.4.1.37954.1.2"
-MSOID=".1.3.6.1.4.1.37954.2.1"
+MSOID=".1.3.6.1.4.1.37954.5.2"
 
 # Checking against multisensor and not through alarmmanager?
 MS=0
@@ -187,14 +187,14 @@ if [ $MS -eq 1 ]; then
 	fi
 
 	# Sensor ID is not the same on MultiSensor as in AlarmManager
-	SENSORDATA=$(($SENSORDATA-1))
+	SENSORDATA=$(($SENSORDATA))
 
 	# If temperature, humidity or dewpoint, divide by 10
-	if [[ ( $SENSORDATA -eq 1 ) || ( $SENSORDATA -eq 2 ) || ( $SENSORDATA -eq 3 ) ]]; then
+	if [[ ( $SENSORDATA -eq 2 ) || ( $SENSORDATA -eq 3 ) || ( $SENSORDATA -eq 4 ) ]]; then
 
-        	DATA=`$SNMPGET -v2c -c $COMMUNITY $HOST $MSOID.$SENSORDATA.1.0 | awk '{print $NF/10}'`
+        	DATA=`$SNMPGET -v2c -c $COMMUNITY $HOST $MSOID.$SENSORDATA.1.2.1 | awk '{print $NF/10}'`
 	else
-        	DATA=`$SNMPGET -v2c -c $COMMUNITY $HOST $MSOID.$SENSORDATA.1.0 | awk '{print $NF}'`
+        	DATA=`$SNMPGET -v2c -c $COMMUNITY $HOST $MSOID.$SENSORDATA.1.2.1 | awk '{print $NF}'`
 	fi
 
 else
@@ -210,10 +210,10 @@ else
 	# If temperature, humidity or dewpoint, divide by 10
 	if [[ ( $SENSORDATA -eq 2 ) || ( $SENSORDATA -eq 3 ) || ( $SENSORDATA -eq 4 ) ]]; then
 
-		DATA=`$SNMPGET -v2c -c $COMMUNITY $HOST $KAMOID.$DEVICE.$SENSORDATA.0 | awk '{print $NF/10}'`
+		DATA=`$SNMPGET -v2c -c $COMMUNITY $HOST $KAMOID.$DEVICE.$SENSORDATA.1.2.1 | awk '{print $NF/10}'`
 
 	else
-		DATA=`$SNMPGET -v2c -c $COMMUNITY $HOST $KAMOID.$DEVICE.$SENSORDATA.0 | awk '{print $NF}'`
+		DATA=`$SNMPGET -v2c -c $COMMUNITY $HOST $KAMOID.$DEVICE.$SENSORDATA.1.2.1 | awk '{print $NF}'`
 	fi
 fi
 
